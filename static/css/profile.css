@@ -1,0 +1,272 @@
+/* ===== BASE (DESKTOP DEFAULT) ===== */
+
+.profile-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px;
+}
+
+.profile-pic {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
+	display: block;
+}
+
+.profile-wrapper {
+	position: relative;
+	cursor: pointer;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: 0.3s;
+}
+
+.profile-wrapper:hover .overlay {
+	opacity: 1;
+}
+
+.overlay i {
+	color: white;
+	font-size: 24px;
+}
+
+.overlay span {
+	color: white;
+	font-size: 12px;
+}
+
+/* ===== LAYOUT ===== */
+
+.container-1 {
+	display: flex;
+	min-height: 100vh;
+	padding: 0 200px 0 200px ;
+
+}
+
+/* Sidebar */
+.sidebar {
+	width: 250px;
+	padding: 20px;
+}
+
+.sidebar h2 {
+	margin-bottom: 20px;
+	color: white;
+}
+
+.sidebar button {
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0;
+	border: none;
+	background: #e53637;
+	color: white;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.sidebar button:hover {
+	background: #475569;
+}
+
+/* Main */
+.main {
+	flex: 1;
+	padding: 30px;
+}
+
+.section {
+	display: none;
+	/* width: 50%; */
+}
+
+.section h2 {
+	color: white;
+}
+
+.active {
+	display: block;
+	color: white;
+}
+
+/* Profile Box */
+.profile-box {
+	padding: 20px;
+	border-radius: 10px;
+	max-width: 500px;
+	/* width: 100%; */
+}
+
+.profile-box label {
+	display: block;
+	margin-top: 10px;
+	color: white;
+}
+
+.profile-box input {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border: none;
+	border-radius: 5px;
+}
+
+.profile-box input[disabled] {
+	background: #475569;
+	color: #cbd5f5;
+}
+
+.profile-box button {
+	margin-top: 15px;
+	padding: 10px;
+	width: 100%;
+	background: #e53637;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* Anime List */
+.anime-item {
+	background: #334155;
+	padding: 10px;
+	margin: 5px 0;
+	border-radius: 5px;
+}
+
+.anime-list {
+	margin-top: 20px;
+	max-height: 500px;
+	overflow-y: auto;
+	padding-right: 5px;
+	max-width: 100%;
+	/* width: 100%; */
+	/* display: flex; */
+	/* align-items: center; */
+	/* background-color: aqua; */
+
+}
+.adjust{
+	display: flex;
+	flex-wrap: wrap;
+	/* align-items: center; */
+	/* justify-content: center; */
+ width: 100%;
+ gap: 0px;
+ padding: 0px;
+	/* background-color: #e53637; */
+	/* width: 100px; */
+}
+.set-b{
+	width: 250px;
+}
+.anime-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.anime-list::-webkit-scrollbar-thumb {
+	background: #e53637;
+	border-radius: 10px;
+}
+
+.anime-list::-webkit-scrollbar-track {
+	background: #1e293b;
+}
+
+.formbtn{
+	color: white;
+	all: unset; 
+	cursor: pointer;
+}
+
+
+/* ===== TABLET (≤ 992px) ===== */
+@media (max-width: 992px) {
+
+	.container-1 {
+		flex-direction: column;
+		padding: 0 60px;
+	}
+
+	.sidebar {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.sidebar button {
+		width: auto;
+		margin: 5px;
+		padding: 10px 15px;
+	}
+
+	.main {
+		padding: 20px;
+	}
+
+}
+
+/* ===== MOBILE (≤ 600px) ===== */
+@media (max-width: 600px) {
+
+	.profile-pic {
+		width: 90px;
+		height: 90px;
+	}
+
+	.overlay {
+		width: 90px;
+		height: 90px;
+	}
+
+	.overlay i {
+		font-size: 18px;
+	}
+
+	.overlay span {
+		font-size: 10px;
+	}
+
+	.profile-box {
+		padding: 15px;
+	}
+
+	.main {
+		padding: 15px;
+	}
+
+	.sidebar {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.sidebar button {
+		width: 90%;
+	}
+
+	.anime-list {
+		max-height: 300px;
+		max-width: 400px;
+		margin: 30px;
+	}
+
+}

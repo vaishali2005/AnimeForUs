@@ -1,0 +1,17 @@
+/* categories */
+.product__page__content a{
+    font-size: 13px;
+	color: #ffffff;
+	background: #e53637;
+	font-weight: 700;
+	border: none;
+	border-radius: 2px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 12px 30px;
+    margin: 10px 5px;
+}
+.product__page__content{
+    margin: 20px 0;
+}

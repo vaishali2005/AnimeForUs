@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static',filename = 'css/categories.css')}}">
+
+{% endblock %}
+{%block content%}
+
+    <!-- Breadcrumb Begin **-->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="{{url_for('index')}}"><i class="fa fa-home"></i> Home</a>
+                        <!-- <a href="{{url_for('categories')}}">Categories</a> -->
+                        <span>Categories</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Product Section Begin -->
+    <section class="product-page spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="product__page__content">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <h4>Main Genres</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('genre', id=1, name='Action') }}">Action</a>
+                        <a href="{{ url_for('genre', id=2, name='Adventure') }}">Adventure</a>
+                        <a href="{{ url_for('genre', id=5, name='Avant Gar') }}">Avant Garde</a>
+                        <a href="{{ url_for('genre', id=46, name='Award Win') }}">Award Winning</a>
+                        <a href="{{ url_for('genre', id=4, name='Comedy') }}">Comedy</a>
+                        <a href="{{ url_for('genre', id=8, name='Drama') }}">Drama</a>
+                        <a href="{{ url_for('genre', id=10, name='Fantasy') }}">Fantasy</a>
+                        <a href="{{ url_for('genre', id=14, name='Horror') }}">Horror</a>
+                        <a href="{{ url_for('genre', id=7, name='Mystery') }}">Mystery</a>
+                        <a href="{{ url_for('genre', id=22, name='Romance') }}">Romance</a>
+                        <a href="{{ url_for('genre', id=24, name='Sci-Fi') }}">Sci-Fi</a>
+                        <a href="{{ url_for('genre', id=36, name='Slice of Life') }}">Slice of Life</a>
+                        <a href="{{ url_for('genre', id=30, name='Sports') }}">Sports</a>
+                        <a href="{{ url_for('genre', id=37, name='Supernatural') }}">Supernatural</a>
+                        <a href="{{ url_for('genre', id=41, name='Suspense') }}">Suspense</a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="product__page__content">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <h4>Themes (Sub-genres)</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('genre', id=23, name='School') }}">School</a>
+                        <a href="{{ url_for('genre', id=27, name='Shoune') }}">Shounen</a>
+                        <a href="{{ url_for('genre', id=25, name='Shoujo') }}">Shoujo</a>
+                        <a href="{{ url_for('genre', id=42, name='Seinen') }}">Seinen</a>
+                        <a href="{{ url_for('genre', id=43, name='Josei') }}">Josei</a>
+                        <a href="{{ url_for('genre', id=35, name='Harem') }}">Harem</a>
+                        <a href="{{ url_for('genre', id=62, name='Isekai') }}">Isekai</a>
+                        <a href="{{ url_for('genre', id=18, name='Mecha') }}">Mecha</a>
+                        <a href="{{ url_for('genre', id=38, name='Military') }}">Military</a>
+                        <a href="{{ url_for('genre', id=19, name='Music') }}">Music</a>
+                        <a href="{{ url_for('genre', id=40, name='Psychological') }}">Psychological</a>
+                        <a href="{{ url_for('genre', id=13, name='Historical') }}">Historical</a>
+                        <a href="{{ url_for('genre', id=20, name='Parody') }}">Parody</a>
+                        <a href="{{ url_for('genre', id=21, name='Samurai') }}">Samurai</a>
+                        <a href="{{ url_for('genre', id=31, name='Super power') }}">Super Power</a>
+                        <a href="{{ url_for('genre', id=32, name='Vampire') }}">Vampire</a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="product__page__content">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <h4>Demographics</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('genre', id=15, name='Kids') }}">Kids</a>
+                        <a href="{{ url_for('genre', id=27, name='Shounen') }}">Shounen</a>
+                        <a href="{{ url_for('genre', id=25, name='Shoujo') }}">Shoujo</a>
+                        <a href="{{ url_for('genre', id=42, name='Seinen') }}">Seinen</a>
+                        <a href="{{ url_for('genre', id=43, name='Josei') }}">Josei</a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Top') }}"><h4>Top Rated Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Popular') }}"><h4>Most Popular Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Trending') }}"><h4>Trending Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Recent') }}"><h4>Recently Released Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Upcoming') }}"><h4>Upcoming Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category', name='Airing') }}"><h4>Currently Airing Anime</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category',  name='Movies') }}"><h4>Movies</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-8">
+                        <div class="product__page__title">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="section-title">
+                                        <a href="{{ url_for('category',  name='TV Series') }}"><h4>TV Series</h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+ {% endblock %}

@@ -1,0 +1,87 @@
+.hero__text p {
+	color: #ffffff;
+	font-size: 16px;
+	margin-bottom: 40px;
+	position: relative;
+	top: -100px;
+	opacity: 0;
+	-webkit-transition: all, 0.6s;
+	-o-transition: all, 0.6s;
+	transition: all, 0.6s;
+	display: -webkit-box;
+    -webkit-line-clamp: 3;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.bg{
+	padding: 50px 0 42px 50px;
+
+}
+/* .hero__item {
+    
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+     background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+
+} */
+.hero__item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+/* .hero__text {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    transform: translateY(-50%);
+    color: #fff;
+    max-width: 500px;
+    z-index: 2;
+} */
+
+.hero__items {
+    height: 450px;              /* 👈 fixed height */
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+
+    background-size: cover;     /* 🔥 important */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.hero {
+    overflow: hidden;
+    position: relative;
+}
+
+/* .top-anime-container {
+    width: 100%;
+    overflow: hidden;
+    background-color: #e53637;
+}
+
+.top-anime-scroll {
+    display: flex;
+    gap: 50px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0px;
+}
+
+.top-anime-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.top-anime-scroll::-webkit-scrollbar-thumb {
+    background: #e53637;
+    border-radius: 10px;
+}
+
+.anime-card {
+    min-width: 100%;
+    flex-shrink: 0;
+} */

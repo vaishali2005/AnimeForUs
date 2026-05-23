@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static',filename = 'css/profile.css')}}">
+
+{% endblock %}
+
+{%block content%}
+
+<!-- Normal Breadcrumb Begin -->
+<section class="normal-breadcrumb set-bg" data-setbg="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <form action="/update_profile_pic/{{current_user.email}}" method="POST" enctype="multipart/form-data">
+                    <div class="profile-container">
+                        <label for="file-upload" class="profile-wrapper">
+                            <!-- Profile Image -->
+                            <img src="{{url_for('static',filename='uploads/'+(current_user.profile_pic if current_user.profile_pic else 'default.jpg')) }}"
+                                alt="" srcset="" class="profile-pic">
+                            <!-- Overlay -->
+                            <div class="overlay">
+                                <i class="icon_camera"></i>
+                                <span>Change</span>
+                            </div>
+                        </label>
+
+                        <!-- Hidden File Input -->
+                        <input id="file-upload" type="file" name="profile_pic" hidden onchange="this.form.submit()">
+                    </div>
+                </form>
+                <div class="normal__breadcrumb__text">
+                    <h2>KONICHIWA
+                        <p>{{current_user.username}}</p>
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Normal Breadcrumb End -->
+
+<div class="container-1">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- <h2>Profile</h2> -->
+        <button onclick="showSection('edit')">Edit Profile</button>
+        <button onclick="showSection('watch')">Currently Watching</button>
+        <button onclick="showSection('saved')">Watch List</button>
+        <form action="{{ url_for('logout') }}">
+            <button class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+        <!-- Edit Profile -->
+        <div id="edit" class="section active">
+            <h2>Edit Profile</h2>
+            <form action="/update_profile/{{current_user.email}}" method="POST">
+                <div class="profile-box">
+                    <label for="email">Email</label>
+                    <input type="email" value="{{current_user.email}}" name="email" disabled>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="{{current_user.username}}">
+
+                    <label for="joindate">Joined</label>
+                    <input type="text" value="{{current_user.join_date.strftime('%Y-%m-%d')}}" name="joindate" disabled>
+
+                    <label for="chng_password">Change Password</label>
+                    <input type="password" id="chng_password" name="chng_password">
+
+                    <button type="submit" name="action">Save Changes</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- currently watching -->
+        <div id="watch" class="section">
+            <h2>Currently Watching</h2>
+            <div class="anime-list" id="watchList">
+                <div class="adjust">
+                    {% for a in watching_list %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg set-b" data-setbg="{{ a.img_url }}">
+                                <a href="{{ url_for('remove_anime', anime_id=a.anime_id, data=0) }}"><div class="pg"><i class="fa fa-close"></i></div></a>
+                                {% if a.anime_type=='TV' %}
+                                <div class="comment">EP : {{a.episode}}</div>
+                                {% else %}
+                                <div class="comment">{{a.anime_type}}</div>
+                                {% endif %}
+                                <div class="view">TS : {{ (a.watch_time // 60) }}:{{ "%02d"|format(a.watch_time % 60) }}</div>
+                            </div>
+                            <div class="product__item__text">
+                                <!-- <ul>
+                                    {% if a.anime_type=='TV' %}
+                                    <li>EP : {{a.episode}}</li>
+                                    {% else %}
+                                    <li>{{a.anime_type}}</li>
+                                     {% endif %}
+                                    <li>TS : {{ (a.watch_time // 60) }}:{{ "%02d"|format(a.watch_time % 60) }}</li>
+                                </ul> -->
+                            
+                                <h5><a href="{{ url_for('anime_watching', anime_id=a.anime_id,ep=None) }}">{{ a.anime_name }}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- watch list -->
+        <div id="saved" class="section">
+            <h2>Favriouts</h2>
+            <div class="anime-list" id="savedList">
+                <div class="adjust">
+                    {% for a in fav_animes %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg set-b" data-setbg="{{ a.img_url }}">
+                                <a href="{{ url_for('remove_anime', anime_id=a.anime_id, data=1) }}"><div class="pg"><i class="fa fa-close"></i></div></a>
+
+                                <div class="ep">{{a.episode}} / {{a.episode}}</div>
+                                <!-- <div class="comment"><i class="fa fa-comments"></i> 11</div> -->
+                                <!-- <div class="view"><i class="fa fa-eye"></i> 9141</div> -->
+                            </div>
+                            <div class="product__item__text">
+                                <!-- <ul>
+                                    <li>Current Episod</li>
+                                    <li>Time Space</li>
+                                </ul> -->
+                                <h5><a href="{{ url_for('anime_details', anime_id=a.anime_id) }}">{{a.anime_name}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- Login Section End -->
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock %}
+{% endblock %}

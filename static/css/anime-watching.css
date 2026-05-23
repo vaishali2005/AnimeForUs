@@ -1,0 +1,15 @@
+.ep-btn {
+    background: #3a3f58;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin: 5px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.ep-btn.active {
+    background: #ffffff;
+    color: #000;
+    font-weight: bold;
+}

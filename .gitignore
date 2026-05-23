@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+animeforus_env/
+
+# Database
+*.db
+*.sqlite3
+
+# System files
+.DS_Store
+
+# Flask instance folder
+instance/
+
+*.exe
+
+*.mp4
+static/videos/
