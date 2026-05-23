@@ -72,9 +72,7 @@ def login():
             return redirect('/')
         if request.method == 'POST':
             email = request.form.get('email')
-            # password = request.form.get('password')
             user = User.query.filter_by(email=email).first()
-            # print(user,user.check_password(request.form.get('password')))
             if user is not None and user.check_password(request.form.get('password')):
                 login_user(user)
                 return redirect('/') 
@@ -109,7 +107,6 @@ def update_profile(email):
             # print(user)
             user.username = request.form.get('username')
             chng_password = request.form.get('chng_password')
-            # print(user,chng_password)
             if chng_password is not None:
                 user.set_password(chng_password)
             db.session.commit()
@@ -129,7 +126,6 @@ def update_profile_pic(email):
             print(user)
             
             file = request.files.get('profile_pic')
-            # print(request.files)
             
             if file and file.filename != " " and allowed_file(file.filename):
                 #secure filename
@@ -210,10 +206,8 @@ def timeago(dt):
 def anime_details(anime_id):
     search_anime = search_by_id(anime_id)
     find_genre = search_anime['genres'][0]['mal_id']
-    # user_id = current_user.id
     comment=[]
     comment = AnimeComments.query.filter_by(anime_id=anime_id).all()
-    # print(search_anime['genres'][0]['name'])
     genre = get_anime_by_genre(find_genre)
     return render_template('anime-details.html',anime = search_anime,genre=genre,comment=comment)
 
@@ -229,14 +223,9 @@ def anime_watching(anime_id,ep):
         anime_name = search_anime['title']
     img_url = search_anime['images']['jpg']['large_image_url']
     anime_type = search_anime['type']
-    # id = WatchHistory.query.filter_by(id = anime_id).first()
-    # print(id,user_id,anime_id)
     comment=[]
     try:
         comment = AnimeComments.query.filter_by(anime_id=anime_id).all()
-        # print(comment)
-        # if WatchHistory.query.filter_by(anime_id = anime_id).first() and WatchHistory.query.filter_by(user_id=user_id).first():
-        #     return render_template('anime-watching.html',anime =  search_anime)
         record=WatchHistory.query.filter_by(anime_id = anime_id,user_id=user_id).first()
         if ep is None:
             if record:
@@ -258,29 +247,6 @@ def anime_watching(anime_id,ep):
         print(e)
     return render_template('anime-watching.html',anime =  search_anime,current_episode=ep,comment=comment)
 
-# @login_required
-# @app.route('/watch_ep/<int:anime_id>/', defaults={'ep': None})
-# @app.route('/watch_ep/<int:anime_id>/<int:ep>')
-# def watch_ep(anime_id,ep):
-#     user_id = current_user.id
-#     anime = search_by_id(anime_id)
-#     try:
-#         record=WatchHistory.query.filter_by(anime_id = anime_id,user_id=user_id).first()
-#         if ep is None:
-#             if record:
-#                 ep = record.episode   # 🔥 load from DB
-#             else:
-#                 ep = 1   # default
-#         if record:
-#             record.episode=ep 
-#             db.session.commit()
-            
-#         else:
-#             return('/')
-#     except Exception as e:
-#         db.session.rollback()
-#         print(e)    
-#     return render_template('anime-watching.html',current_episode=ep,anime=anime)
 @login_required
 @app.route('/fav_anime/<int:anime_id>')
 def fav_anime(anime_id):
@@ -326,9 +292,7 @@ def remove_anime(anime_id,data):
 @app.route('/search_anime')
 def search_anime():
     search_item = request.args.get('search_item')
-    # print(search_item)
     anime = search_by_query(search_item)
-    # print(anime)
     return render_template('search-anime.html',anime=anime,item=search_item)
 
 
@@ -357,33 +321,5 @@ def anime_commnets(anime_id):
         db.session.rollback()
         print(e)
 
-
-
-
-#EXTRA
-# @app.route('/move_to_watch/<int:anime_id>/<int:user_id>')
-# def move_to_watch(anime_id,user_id):
-#     try:
-#         if FollowingAnime.query.filter_by(anime_id = anime_id).first() and FollowingAnime.query.filter_by(user_id = user_id).first():
-#             # remove_anime(anime_id, user_id,1)
-#             search_anime = search_by_id(anime_id)
-#             if search_anime['title_english']:
-#                 anime_name = search_anime['title_english']
-#             else:
-#                 anime_name = search_anime['title']
-#             img_url = search_anime['images']['jpg']['large_image_url']
-#             anime_type = search_anime['type']
-#             watch = WatchHistory(anime_id=anime_id,user_id=user_id,anime_name = anime_name,img_url=img_url,anime_type=anime_type) 
-#             db.session.add(watch)
-#             db.session.commit() 
-#             remove_anime(anime_id, user_id,1) 
-#             return render_template('anime-watching.html',anime =  search_anime)
-#         return 'could not move'
-            
-#     except Exception as e:
-#         print(e)
-#         db.session.rollback()
-
-
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run()
