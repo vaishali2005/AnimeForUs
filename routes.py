@@ -13,7 +13,6 @@ from fetch_data import get_anime_by_genre,anime_data,popular_anime,top_anime,tre
 load_dotenv()
 app = Flask(__name__)
 app.secret_key=os.getenv('SECRET_KEY')
-print("App Secret:", app.secret_key)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///animeforusDB.db'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
