@@ -3,7 +3,8 @@ AnimeForUs
 AnimeForUs is a dynamic web application that allows users to explore, search, and view anime content. It fetches real-time data using the Jikan API and provides categorized anime like trending, popular, and genre-based listings.
 
 
-Features
+Features : 
+
     1. Search anime by name
     2. Anime viewing interface (UI-based player)
     3. Trending & Popular anime sections
@@ -15,13 +16,15 @@ Features
 
 
 
-Tech Stack
+Tech Stack : 
+
     Backend:  Flask (Python)
     Forntend :  HTML, CSS, JavaScript
     DB : SQLite
     API : Jikan API (MyAnimeList Unofficial API)
 
-Project Structure
+Project Structure : 
+
 AnimeForUs/
 │
 ├── static/ # CSS, JS, Images
@@ -35,45 +38,54 @@ AnimeForUs/
 └── README.md
 
 
-Installation & Setup
+Installation & Setup : 
 
-Clone the repository
 
-git clone https://github.com/YOUR_USERNAME/AnimeForUs.git
-cd AnimeForUs
+Clone the repository : 
 
-Create virtual environment
-    python -m venv venv
-    venv\Scripts\activate   # For Windows#
+    git clone https://github.com/YOUR_USERNAME/AnimeForUs.git
+    cd AnimeForUs
 
-Install dependencies
+Create virtual environment : 
+
+    1. python -m venv venv
+    2. venv\Scripts\activate   # For Windows#
+
+Install dependencies : 
+
     pip install -r requirements.txt
 
-Create .env file
+Create .env file : 
+
     SECRET_KEY=your_secret_key_here
 
-Run the application
+Run the application : 
+
     python route.py
 
-API Used
-    Jikan API (https://jikan.moe/)
-    Provides anime data without requiring an API key
+API Used :
 
-Limitations
-    This application does not support real anime streaming.
-    It uses the Jikan API, which only provides anime metadata (titles, images, descriptions).
-    Video playback features are for UI demonstration purposes only.
+    1. Jikan API (https://jikan.moe/)
+    2. Provides anime data without requiring an API key
 
-Future Scope
-    Integrate legal anime streaming sources (if available)
-    Add caching for faster API responses
-    Improve user profile system
-    Enhance UI/UX design
-    Deploy project online
+Limitations : 
 
-Security
-    Sensitive data like SECRET_KEY is stored in .env
-    .env is excluded using .gitignore
+    1. This application does not support real anime streaming.
+    2. It uses the Jikan API, which only provides anime metadata (titles, images, descriptions).
+    3. Video playback features are for UI demonstration purposes only.
+
+Future Scope : 
+
+    1. Integrate legal anime streaming sources (if available)
+    2. Add caching for faster API responses
+    3. Improve user profile system
+    4. Enhance UI/UX design
+    5. Deploy project online
+
+Security : 
+
+    1. Sensitive data like SECRET_KEY is stored in .env
+    2. .env is excluded using .gitignore
 
 
 
