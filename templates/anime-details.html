@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block extra_css %}
-<!-- <link rel="stylesheet" href="{{url_for('static',filename = 'css/index.css')}}"> -->
 
 {% endblock %}
 {%block content%}
@@ -12,7 +11,6 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="anime__details__pic set-bg" data-setbg="{{ anime.images.jpg.large_image_url }}">
-                        <!-- <div class="comment"><i class="fa fa-comments"></i> 11</div> -->
                         <div class="view"><i class="fa fa-users"> {{anime.members | format_views}}</i> </div>
                     </div>
                 </div>

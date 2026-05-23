@@ -95,15 +95,6 @@
                                 <div class="view">TS : {{ (a.watch_time // 60) }}:{{ "%02d"|format(a.watch_time % 60) }}</div>
                             </div>
                             <div class="product__item__text">
-                                <!-- <ul>
-                                    {% if a.anime_type=='TV' %}
-                                    <li>EP : {{a.episode}}</li>
-                                    {% else %}
-                                    <li>{{a.anime_type}}</li>
-                                     {% endif %}
-                                    <li>TS : {{ (a.watch_time // 60) }}:{{ "%02d"|format(a.watch_time % 60) }}</li>
-                                </ul> -->
-                            
                                 <h5><a href="{{ url_for('anime_watching', anime_id=a.anime_id,ep=None) }}">{{ a.anime_name }}</a></h5>
                             </div>
                         </div>
@@ -125,14 +116,8 @@
                                 <a href="{{ url_for('remove_anime', anime_id=a.anime_id, data=1) }}"><div class="pg"><i class="fa fa-close"></i></div></a>
 
                                 <div class="ep">{{a.episode}} / {{a.episode}}</div>
-                                <!-- <div class="comment"><i class="fa fa-comments"></i> 11</div> -->
-                                <!-- <div class="view"><i class="fa fa-eye"></i> 9141</div> -->
                             </div>
                             <div class="product__item__text">
-                                <!-- <ul>
-                                    <li>Current Episod</li>
-                                    <li>Time Space</li>
-                                </ul> -->
                                 <h5><a href="{{ url_for('anime_details', anime_id=a.anime_id) }}">{{a.anime_name}}</a></h5>
                             </div>
                         </div>
