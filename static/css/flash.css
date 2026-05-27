@@ -1,0 +1,126 @@
+/* .flash {
+    padding: 12px 20px;
+    margin: 10px auto;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    width: 300px;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    
+    z-index: 1000;
+}
+
+
+.flash.success { background-color: #28a745; }
+.flash.error { background-color: #dc3545; }
+.flash.warning { background-color: #ffc107; color: black; }
+.flash.info { background-color: #17a2b8; }
+
+.flash span {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 18px;
+} */
+
+/* Base */
+.flash {
+    padding: 14px 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    color: #f1f1f1;
+    font-weight: 500;
+    width: 300px;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 1000;
+
+    /* NEW */
+    background: #1e1e2f;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border-left: 5px solid;
+    backdrop-filter: blur(6px);
+    animation: slideIn 0.4s ease;
+}
+
+/* Success */
+.flash.success {
+    border-color: #00ffae;
+    background: rgba(0, 255, 174, 0.08);
+}
+
+/* Error */
+.flash.error {
+    border-color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.08);
+}
+
+/* Warning */
+.flash.warning {
+    border-color: #ffc107;
+    background: rgba(255, 193, 7, 0.08);
+}
+
+/* Info */
+.flash.info {
+    border-color: #4da6ff;
+    background: rgba(77, 166, 255, 0.08);
+}
+
+/* Close button */
+.flash span {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #aaa;
+}
+.flash span:hover {
+    color: white;
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 📱 Mobile devices */
+@media (max-width: 600px) {
+    .flash {
+        width: 95%;
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+
+/* 💻 Tablets */
+@media (max-width: 900px) {
+    .flash {
+        width: 92%;
+        font-size: 15px;
+    }
+}
+
+/* 🖥️ Large screens */
+@media (min-width: 1200px) {
+    .flash {
+        max-width: 700px;
+        font-size: 16px;
+    }
+}

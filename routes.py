@@ -1,4 +1,4 @@
-from flask import Flask,redirect,request,url_for,render_template,jsonify,json
+from flask import Flask,redirect,request,url_for,render_template,jsonify,json,flash
 from datetime import datetime,timedelta
 from flask_login import login_required,current_user,login_user,logout_user
 from models import User,db,login,WatchHistory,FollowingAnime,AnimeComments
@@ -52,17 +52,19 @@ def register():
             username = request.form.get('username')
             password = request.form.get('password')
             if User.query.filter_by(email=email).first():
-                return "This Email is alredy exists"
+                flash("This Email is alredy exists", "warning")
+                return redirect('/register')
             user = User(email=email,username=username)
             user.set_password(password)
             db.session.add(user)
             db.session.commit()
+            flash("User Registered Successfully", "success")
             return redirect('/login')
-        return render_template('register.html')
     except Exception as e:
         db.session.rollback()
         print(e)
-        return "Coulnt register new candidate"
+        flash("Registration Unsuccessfull", "error")
+    return render_template('register.html')
 
 #LOGIN
 @app.route('/login', methods = ['GET','POST'])
@@ -75,18 +77,21 @@ def login():
             user = User.query.filter_by(email=email).first()
             if user is not None and user.check_password(request.form.get('password')):
                 login_user(user)
+                flash("User Login Successfully", "success")
                 return redirect('/') 
+            flash("User Not Registered", "error")
             return render_template('register.html')
-        return render_template('login.html')
     except Exception as e:
         db.session.rollback()
         print(e)
-        return "Couldn't logged in"
+        flash("login unsuccessfull","error")
+    return render_template('login.html')
 
 #LOGOUT
 @app.route('/logout')
 def logout():
     logout_user()
+    flash("User Logged Out", "success")
     return redirect('/')
 
 #PROFILE
@@ -110,12 +115,13 @@ def update_profile(email):
             if chng_password is not None:
                 user.set_password(chng_password)
             db.session.commit()
+            flash("User Profile Updated", "success")
             return redirect('/')
-        return render_template('profile.html')
     except Exception as e:
         db.session.rollback()
         print(e)
-        return "Changes couldn't save"
+        flash("Couldn't Update User Profile","error")
+    return render_template('profile.html')
 
 @app.route('/update_profile_pic/<string:email>', methods = ['POST','GET'])
 @login_required
@@ -145,13 +151,13 @@ def update_profile_pic(email):
                 #save new pic in DB
                 user.profile_pic = unique_name
                 db.session.commit()
-                print('done')
+                flash("User Profile Updated", "success")
                 return redirect('/')
-        return render_template('profile.html')
     except Exception as e:
         db.session.rollback()
         print(e)
-        return "couldnt Upload new profile pic"
+        flash("Couldn't Update User Profile","error")
+    return render_template('profile.html')
     
 @app.route('/categories')
 def categories():
@@ -211,9 +217,9 @@ def anime_details(anime_id):
     genre = get_anime_by_genre(find_genre)
     return render_template('anime-details.html',anime = search_anime,genre=genre,comment=comment)
 
-@login_required
 @app.route('/anime_watching/<int:anime_id>/', defaults={'ep': None})
 @app.route('/anime_watching/<int:anime_id>/<int:ep>')
+@login_required
 def anime_watching(anime_id,ep):
     user_id = current_user.id
     search_anime = search_by_id(anime_id)
@@ -242,13 +248,15 @@ def anime_watching(anime_id,ep):
         watch = WatchHistory(anime_id=anime_id,user_id=user_id,anime_name = anime_name,img_url=img_url,anime_type=anime_type) 
         db.session.add(watch)
         db.session.commit()   
+        flash("Added To The Watch List","success")
     except Exception as e:
         db.session.rollback()
         print(e)
+        flash("Couldn't Added To The Watch List","error")
     return render_template('anime-watching.html',anime =  search_anime,current_episode=ep,comment=comment)
 
-@login_required
 @app.route('/fav_anime/<int:anime_id>')
+@login_required
 def fav_anime(anime_id):
     search_anime = search_by_id(anime_id)
     user_id = current_user.id
@@ -262,16 +270,17 @@ def fav_anime(anime_id):
         if FollowingAnime.query.filter_by(anime_id = anime_id).first() and FollowingAnime.query.filter_by(user_id=user_id).first():
             return redirect('/anime_details',anime_id=anime_id)
         watch = FollowingAnime(anime_id = anime_id,user_id=user_id,anime_name=anime_name,img_url=img_url,episode=episode)
-        print(watch)
         db.session.add(watch)
         db.session.commit()
+        flash("Added To The Favirote List","success")
     except Exception as e:
         print(e)
         db.session.rollback()
+        flash("Couldn't Added To The Favirote List","error")
     return redirect(request.referrer)
 
-@login_required
 @app.route('/remove_anime/<int:anime_id>/<int:data>')
+@login_required
 def remove_anime(anime_id,data):
     user_id = current_user.id
     try:
@@ -282,11 +291,12 @@ def remove_anime(anime_id,data):
             if WatchHistory.query.filter_by(anime_id = anime_id).first() and WatchHistory.query.filter_by(user_id=user_id).first():
                WatchHistory.query.filter_by(anime_id = anime_id).delete()
         db.session.commit()
-        return redirect(request.referrer)
+        flash("Remove Anime successfully","success")
     except Exception as e:
         print(e)
         db.session.rollback()
-    return "couldn't delete record"
+        flash("Couldn't Remove Anime","error")
+    return redirect(request.referrer)
 
 
 @app.route('/search_anime')
