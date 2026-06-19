@@ -10,7 +10,6 @@ AnimeForUs is a dynamic web application that allows users to explore, search, an
 * 🎬 Anime viewing interface (UI-based player)
 * 📈 Trending & Popular anime sections
 * 🎭 Browse anime by genres (Action, Comedy, Romance, etc.)
-* 🆕 Latest and Upcoming anime
 * 👤 User authentication (Login/Register)
 * 🧾 Detailed anime information pages
 * 💬 Comment system
@@ -31,30 +30,23 @@ AnimeForUs is a dynamic web application that allows users to explore, search, an
 ### 🏠 Home Page
 
 
-```
 ![Home Page](screenshots/home.png)
-```
+
 
 ### 🔍 Search Feature
 
 
-```
 ![Search Page](screenshots/search.png)
-```
 
 ### 📺 Anime Details Page
 
 
-```
 ![Details Page](screenshots/details.png)
-```
 
 ### 👤 Authentication Page
 
 
-```
 ![Login Page](screenshots/login.png)
-```
 
 ---
 
