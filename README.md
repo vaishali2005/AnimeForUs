@@ -41,7 +41,7 @@ AnimeForUs is a dynamic web application that allows users to explore, search, an
 ### 📺 Anime Details Page
 
 
-![Details Page](screenshots/details.png)
+![Details Page](screenshots/detail.png)
 
 ### 👤 Authentication Page
 
