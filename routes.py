@@ -46,20 +46,20 @@ def index():
 def register():
     try:
         if current_user.is_authenticated:
-            return redirect('/')
+            return redirect(url_for('index'))
         if request.method == 'POST':
             email = request.form.get('email')
             username = request.form.get('username')
             password = request.form.get('password')
             if User.query.filter_by(email=email).first():
                 flash("This Email is alredy exists", "warning")
-                return redirect('/register')
+                return redirect(url_for('register'))
             user = User(email=email,username=username)
             user.set_password(password)
             db.session.add(user)
             db.session.commit()
             flash("User Registered Successfully", "success")
-            return redirect('/login')
+            return redirect(url_for('login'))
     except Exception as e:
         db.session.rollback()
         print(e)
@@ -71,14 +71,14 @@ def register():
 def login():
     try:
         if current_user.is_authenticated:
-            return redirect('/')
+            return redirect(url_for('index'))
         if request.method == 'POST':
             email = request.form.get('email')
             user = User.query.filter_by(email=email).first()
             if user is not None and user.check_password(request.form.get('password')):
                 login_user(user)
                 flash("User Login Successfully", "success")
-                return redirect('/') 
+                return redirect(url_for('index')) 
             flash("User Not Registered", "error")
             return render_template('register.html')
     except Exception as e:
@@ -92,7 +92,7 @@ def login():
 def logout():
     logout_user()
     flash("User Logged Out", "success")
-    return redirect('/')
+    return redirect(url_for('index'))
 
 #PROFILE
 @app.route('/profile')
@@ -116,7 +116,7 @@ def update_profile(email):
                 user.set_password(chng_password)
             db.session.commit()
             flash("User Profile Updated", "success")
-            return redirect('/')
+            return redirect(url_for('profile'))
     except Exception as e:
         db.session.rollback()
         print(e)
@@ -152,7 +152,7 @@ def update_profile_pic(email):
                 user.profile_pic = unique_name
                 db.session.commit()
                 flash("User Profile Updated", "success")
-                return redirect('/')
+                return redirect(url_for('profile'))
     except Exception as e:
         db.session.rollback()
         print(e)
@@ -182,7 +182,8 @@ all_category={
 def category(name):
     category_name = all_category.get(name)
     if not category_name:
-        return "Invalid Category"
+        flash("Something Went Wrong","error")
+        return redirect(url_for('categories'))
     return render_template('category.html',anime_list=category_name,name=name)
 
 @app.template_filter('format_views')
@@ -268,7 +269,7 @@ def fav_anime(anime_id):
     episode = search_anime['episodes']
     try:
         if FollowingAnime.query.filter_by(anime_id = anime_id).first() and FollowingAnime.query.filter_by(user_id=user_id).first():
-            return redirect('/anime_details',anime_id=anime_id)
+            return redirect(url_for('anime_details',anime_id=anime_id))
         watch = FollowingAnime(anime_id = anime_id,user_id=user_id,anime_name=anime_name,img_url=img_url,episode=episode)
         db.session.add(watch)
         db.session.commit()

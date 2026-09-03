@@ -93,6 +93,7 @@
                             </div>
                         </div>
                     </div>
+                    {% if popular_anime %}
                     <div class="row">
                         {% for a in popular_anime[:4] %}
                         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -115,6 +116,14 @@
                         </div>
                         {% endfor %}
                     </div>
+                    {% else %}
+                    <div class="empty-anime">
+        <i class="fa fa-cloud"></i>
+         <h3>Anime list temporarily unavailable</h3>
+    <p>We're having trouble connecting to the anime database.</p>
+        <button onclick="location.reload()">Try Again</button>
+    </div>
+{% endif %}
                 </div>
                 <div class="recent__product">
                     <div class="row">
