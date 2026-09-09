@@ -90,7 +90,7 @@ def search_by_query(query):
         params={
             "q": query
         }
-    ) or []
+    )
 
 #Search Anime by mal_id
 def search_by_id(mal_id):

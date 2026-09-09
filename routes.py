@@ -278,7 +278,7 @@ def fav_anime(anime_id):
         print(e)
         db.session.rollback()
         flash("Couldn't Added To The Favirote List","error")
-    return redirect(request.referrer)
+    return redirect(url_for('profile'))
 
 @app.route('/remove_anime/<int:anime_id>/<int:data>')
 @login_required
@@ -302,10 +302,32 @@ def remove_anime(anime_id,data):
 
 @app.route('/search_anime')
 def search_anime():
-    search_item = request.args.get('search_item')
-    anime = search_by_query(search_item)
-    return render_template('search-anime.html',anime=anime,item=search_item)
 
+    search_item = request.args.get('search_item', '').strip()
+
+    if not search_item:
+        return render_template(
+            'search-anime.html',
+            anime=[],
+            item=''
+        )
+
+    # anime = search_by_query(search_item)
+    anime = None
+
+    # Jikan/API failed
+    if anime is None:
+        return render_template(
+            'search-error.html',
+            item=search_item
+        )
+
+    # API worked, but no anime matched
+    return render_template(
+        'search-anime.html',
+        anime=anime,
+        item=search_item
+    )
 
 @app.route('/anime_comments/<int:anime_id>/',methods=['GET','POST'])
 @login_required
@@ -331,6 +353,17 @@ def anime_commnets(anime_id):
     except Exception as e:
         db.session.rollback()
         print(e)
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("500.html"), 500
+
 
 if __name__=='__main__':
     app.run()

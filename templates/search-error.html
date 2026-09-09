@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} | Search Error Page{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static',filename = 'css/error-page.css')}}">
+
+{% endblock %}
+{% block content %}
+
+<section class="error-page">
+    <div class="error-container">
+
+        <h1>Oops!</h1>
+
+        <h2>Anime Search Is Unavailable</h2>
+
+        <p>
+            We couldn't connect to our anime database right now.
+            Please try again in a few moments.
+        </p>
+
+        <a href="{{ url_for('search_anime', search_item=item) }}"
+           class="primary-btn">
+            Try Again
+        </a>
+
+        <a href="{{ url_for('index') }}" class="secondary-btn">
+            Back to Home
+        </a>
+
+    </div>
+</section>
+
+{% endblock %}
