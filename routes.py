@@ -62,7 +62,7 @@ def register():
             return redirect(url_for('login'))
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
         flash("Registration Unsuccessfull", "error")
     return render_template('register.html')
 
@@ -83,7 +83,7 @@ def login():
             return render_template('register.html')
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
         flash("login unsuccessfull","error")
     return render_template('login.html')
 
@@ -119,7 +119,7 @@ def update_profile(email):
             return redirect(url_for('profile'))
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
         flash("Couldn't Update User Profile","error")
     return render_template('profile.html')
 
@@ -129,7 +129,7 @@ def update_profile_pic(email):
     try:
         if request.method == 'POST':
             user = User.query.filter_by(email=email).first()
-            print(user)
+            # print(user)
             
             file = request.files.get('profile_pic')
             
@@ -155,7 +155,7 @@ def update_profile_pic(email):
                 return redirect(url_for('profile'))
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
         flash("Couldn't Update User Profile","error")
     return render_template('profile.html')
     
@@ -252,7 +252,7 @@ def anime_watching(anime_id,ep):
         flash("Added To The Watch List","success")
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
         flash("Couldn't Added To The Watch List","error")
     return render_template('anime-watching.html',anime =  search_anime,current_episode=ep,comment=comment)
 
@@ -275,7 +275,7 @@ def fav_anime(anime_id):
         db.session.commit()
         flash("Added To The Favirote List","success")
     except Exception as e:
-        print(e)
+        # print(e)
         db.session.rollback()
         flash("Couldn't Added To The Favirote List","error")
     return redirect(url_for('profile'))
@@ -294,7 +294,7 @@ def remove_anime(anime_id,data):
         db.session.commit()
         flash("Remove Anime successfully","success")
     except Exception as e:
-        print(e)
+        # print(e)
         db.session.rollback()
         flash("Couldn't Remove Anime","error")
     return redirect(request.referrer)
@@ -346,13 +346,11 @@ def anime_commnets(anime_id):
             else:
                 add_comment = AnimeComments(anime_id = anime_id,user_id=user_id,username=username,comment=new_comment,img_url=user_img)
                 db.session.add(add_comment)
-            db.session.commit()
-            return redirect(request.referrer)
-        else:
-            return "Hello" 
+            db.session.commit() 
     except Exception as e:
         db.session.rollback()
-        print(e)
+        # print(e)
+    return redirect(request.referrer)
 
 
 @app.errorhandler(404)
