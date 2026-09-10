@@ -19,26 +19,25 @@ def jikan_request(url, params=None):
             timeout=15
         )
 
-        print("Request URL:", res.url)
-        print("Status:", res.status_code)
+        # print("Request URL:", res.url)
+        # print("Status:", res.status_code)
 
         if res.status_code != 200:
-            print("Jikan Error:", res.text)
-            return None
+            # print("Jikan Error:", res.text)
+            return []
 
         response = res.json()
 
-        return response.get("data")
+        return response.get("data") or []
 
     except requests.RequestException as e:
-        print("Jikan Connection Error:", e)
-        return None
+        # print("Jikan Connection Error:", e)
+        return []
 
 
 
 url = "https://api.jikan.moe/v4/anime"
-
-params = {"q": "naruto"}
+params = {"q": "one piece"}
 
 response = requests.get(url, params=params, timeout=15)
 
@@ -67,7 +66,7 @@ def airing_anime():
 
 #. Recently Released Anime
 def recent_anime():
-    anime = anime_data()
+    anime = anime_data() or []
     res = sorted(anime,key=lambda x: x.get('aired', {}).get('from') or "",reverse=True)
     return res
 
