@@ -36,15 +36,6 @@ def jikan_request(url, params=None):
 
 
 
-url = "https://api.jikan.moe/v4/anime"
-params = {"q": "one piece"}
-
-response = requests.get(url, params=params, timeout=15)
-
-print("URL:", response.url)
-print("STATUS:", response.status_code)
-print(response.text[:1000])
-
 #Popular Anime
 def popular_anime():
     return jikan_request(
