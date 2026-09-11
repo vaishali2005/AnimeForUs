@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import os
 from dotenv import load_dotenv
 # from fetch_data import anime_data
+from cache_anime import get_cached_anime
 from fetch_data import get_anime_by_genre,anime_data,popular_anime,top_anime,trending_anime,upcoming_anime,recent_anime,TV_series,movies,airing_anime,search_by_id,search_by_query
 
 # Load .env first
@@ -37,8 +38,12 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    # print(popular_anime())
-    return render_template('index.html', trending_anime=trending_anime(),top_anime=top_anime(),popular_anime=popular_anime(),recent_anime=recent_anime())
+    return render_template('index.html', 
+        trending_anime=get_cached_anime('trending', trending_anime),
+        top_anime=get_cached_anime('top', top_anime),
+        popular_anime=get_cached_anime('popular', popular_anime),
+        recent_anime=get_cached_anime('recent', recent_anime)
+    )
 
 
 #REGISTER
