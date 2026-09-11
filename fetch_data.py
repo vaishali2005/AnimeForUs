@@ -19,11 +19,11 @@ def jikan_request(url, params=None):
             timeout=15
         )
 
-        # print("Request URL:", res.url)
-        # print("Status:", res.status_code)
+        print("JIKAN URL:", res.url)
+        print("JIKAN STATUS:", res.status_code)
+        print("JIKAN RESPONSE:", res.text[:500])
 
         if res.status_code != 200:
-            # print("Jikan Error:", res.text)
             return []
 
         response = res.json()
@@ -31,7 +31,7 @@ def jikan_request(url, params=None):
         return response.get("data") or []
 
     except requests.RequestException as e:
-        # print("Jikan Connection Error:", e)
+        print("JIKAN ERROR:", e)
         return []
 
 
