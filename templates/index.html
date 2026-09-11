@@ -34,10 +34,11 @@
             {% endfor %}
         </div>
         {% else %}
-    <div style="text-align: center; padding: 60px 20px;">
+    <div class="empty-anime">
         <i class="fa fa-cloud"></i>
-        <h3>Loading...</h3>
-        <p>Anime data is loading. Please refresh if it takes too long.</p>
+         <h3>Anime list temporarily unavailable</h3>
+    <p>We're having trouble connecting to the anime database.</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 {% endif %}
     </div>
@@ -88,10 +89,11 @@
                         {% endfor %}
                     </div>
                     {% else %}
-    <div style="text-align: center; padding: 60px 20px;">
+   <div class="empty-anime">
         <i class="fa fa-cloud"></i>
-        <h3>Loading...</h3>
-        <p>Anime data is loading. Please refresh if it takes too long.</p>
+         <h3>Anime list temporarily unavailable</h3>
+    <p>We're having trouble connecting to the anime database.</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 {% endif %}
                 </div>
@@ -181,10 +183,11 @@
                         <!-- </div> -->
                     </div>
                     {% else %}
-    <div style="text-align: center; padding: 60px 20px;">
+    <div class="empty-anime">
         <i class="fa fa-cloud"></i>
-        <h3>Loading...</h3>
-        <p>Anime data is loading. Please refresh if it takes too long.</p>
+         <h3>Anime list temporarily unavailable</h3>
+    <p>We're having trouble connecting to the anime database.</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 {% endif %}
                 </div>
@@ -193,42 +196,4 @@
     </div>
 </section>
 <!-- Product Section End -->
- <script>
-// Check if data is empty and retry
-document.addEventListener('DOMContentLoaded', function() {
-    const heroSection = document.querySelector('.hero__items');
-    const productSection = document.querySelector('.product__item');
-    
-    // If no anime content loaded, show retry button
-    if (!heroSection && !productSection) {
-        console.log('⚠️ No anime data loaded. Showing retry button...');
-        
-        const retryHtml = `
-            <div style="text-align: center; padding: 100px 20px;">
-                <i class="fa fa-cloud" style="font-size: 60px; color: #999;"></i>
-                <h2 style="color: #666; margin: 20px 0;">Loading Anime Data...</h2>
-                <p style="color: #999; margin: 10px 0;">Please wait a moment or refresh the page</p>
-                <button onclick="location.reload()" style="
-                    margin-top: 20px;
-                    padding: 12px 30px;
-                    background: #e91e63;
-                    color: white;
-                    border: none;
-                    border-radius: 4px;
-                    font-size: 16px;
-                    cursor: pointer;
-                ">Retry</button>
-            </div>
-        `;
-        
-        document.querySelector('.container').innerHTML = retryHtml;
-        
-        // Auto-retry after 5 seconds
-        setTimeout(() => {
-            console.log('🔄 Auto-retrying...');
-            location.reload();
-        }, 5000);
-    }
-});
-</script>
 {% endblock %}

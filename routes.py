@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 import os
 from dotenv import load_dotenv
 # from fetch_data import anime_data
-
 from fetch_data import get_anime_by_genre,anime_data,popular_anime,top_anime,trending_anime,upcoming_anime,recent_anime,TV_series,movies,airing_anime,search_by_id,search_by_query
 
 # Load .env first
