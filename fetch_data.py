@@ -1,6 +1,7 @@
 import requests
 # from routes import AnimeData,db
 from urllib.parse import quote
+import time
 
 
 #WORKING
@@ -11,27 +12,68 @@ def anime_data():
         )
 
 
+import requests
+import time
+
 def jikan_request(url, params=None):
-    try:
-        res = requests.get(
-            url,
-            params=params,
-            timeout=15
-        )
+    """Improved version with retries and better headers"""
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.9',
+    }
+    
+    # Try 3 times with different endpoints
+    endpoints = [
+        url,  # Primary
+        url.replace('api.jikan.moe', 'api2.jikan.moe'),  # Backup 1
+        url.replace('api.jikan.moe', 'api3.jikan.moe'),  # Backup 2
+    ]
+    
+    for attempt, endpoint in enumerate(endpoints):
+        try:
+            print(f"[Attempt {attempt + 1}] Fetching: {endpoint}")
+            
+            res = requests.get(
+                endpoint,
+                params=params,
+                timeout=10,  # Reduced timeout
+                headers=headers
+            )
 
-        print("JIKAN URL:", res.url)
-        print("JIKAN STATUS:", res.status_code)
+            if res.status_code == 200:
+                response = res.json()
+                data = response.get("data") or []
+                print(f"✅ Success! Got {len(data)} items")
+                return data
+            
+            elif res.status_code == 429:  # Rate limited
+                print(f"⚠️ Rate limited. Waiting 2 seconds...")
+                time.sleep(2)
+                continue
+            
+            elif res.status_code == 504:  # Bad Gateway
+                print(f"⚠️ 504 Error. Trying next endpoint...")
+                time.sleep(1)
+                continue
+            
+            else:
+                print(f"❌ Error {res.status_code}: {res.text[:100]}")
+                continue
 
-        if res.status_code != 200:
-            print("JIKAN ERROR:", res.text[:500])
-            return []
-
-        response = res.json()
-        return response.get("data") or []
-
-    except requests.RequestException as e:
-        print("JIKAN CONNECTION ERROR:", e)
-        return []
+        except requests.Timeout:
+            print(f"⏱️ Timeout on {endpoint}. Trying next...")
+            time.sleep(1)
+            continue
+            
+        except requests.RequestException as e:
+            print(f"❌ Connection error: {e}")
+            continue
+    
+    # If all endpoints fail, return empty list
+    print(f"❌ All endpoints failed for {url}")
+    return []
 
 
 
