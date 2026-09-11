@@ -1,11 +1,12 @@
 import requests
 # from routes import AnimeData,db
 from urllib.parse import quote
-
+import time
 
 #WORKING
 #All Anime 
 def anime_data():
+    time.sleep(0.5)
     return jikan_request(
             "https://api.jikan.moe/v4/anime"
         )
@@ -37,6 +38,7 @@ def jikan_request(url, params=None):
 
 #Popular Anime
 def popular_anime():
+    time.sleep(0.5)
     return jikan_request(
         "https://api.jikan.moe/v4/top/anime",
         params={
@@ -45,23 +47,28 @@ def popular_anime():
     ) or []
 #top anime
 def top_anime():
+    time.sleep(0.5)
     return jikan_request("https://api.jikan.moe/v4/top/anime")
 
 #Trending Anime
 def trending_anime():
+    time.sleep(0.5)
     return jikan_request("https://api.jikan.moe/v4/seasons/now")
 #Airing Anime
 def airing_anime():
+    time.sleep(0.5)
     return jikan_request("https://api.jikan.moe/v4/top/anime?filter=airing")
 
 #. Recently Released Anime
 def recent_anime():
+    time.sleep(0.5)
     anime = anime_data() or []
     res = sorted(anime,key=lambda x: x.get('aired', {}).get('from') or "",reverse=True)
     return res
 
 #Upcoming Anime
 def upcoming_anime():
+    time.sleep(0.5)
     return jikan_request("https://api.jikan.moe/v4/seasons/upcoming")
 
 #Movies
