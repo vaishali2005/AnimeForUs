@@ -5,6 +5,7 @@ from models import User,db,login,WatchHistory,FollowingAnime,AnimeComments
 #for uploading the user given pic
 from werkzeug.utils import secure_filename
 import os
+from whitenoise import WhiteNoise
 from dotenv import load_dotenv
 # from fetch_data import anime_data
 from fetch_data import get_anime_by_genre,anime_data,popular_anime,top_anime,trending_anime,upcoming_anime,recent_anime,TV_series,movies,airing_anime,search_by_id,search_by_query
@@ -14,7 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key=os.getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///animeforusDB.db'
-
+app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(os.path.dirname(__file__), 'static'), prefix='static/')
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 #defining the path of  folder
 UPLOAD_FOLDER = 'static/uploads'
