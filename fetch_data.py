@@ -12,21 +12,28 @@ def anime_data():
         )
 
 
+from urllib.parse import urlencode, urlparse
+
 def jikan_request(url, params=None):
     try:
-        # --- 🛠️ PROXY WORKAROUND START ---
-        # Instead of calling Jikan directly, wrap the URL in a public proxy wrapper
-        # This masks Render's data center signature completely
-        proxy_url = f"https://corsproxy.io{url}"
-        
+        # 1. Prepare the full target URL by attaching parameters safely first
+        if params:
+            # Check if the url already contains an existing query character '?'
+            separator = "&" if "?" in url else "?"
+            full_target_url = f"{url}{separator}{urlencode(params)}"
+        else:
+            full_target_url = url
+
+        # 2. Package the completely finished target path cleanly behind the proxy
+        proxy_url = f"https://corsproxy.io{full_target_url}"
+
+        # 3. Request the proxy URL directly without sending separate param blocks
         res = requests.get(
-            proxy_url,     # Use the wrapped proxy URL instead of 'url'
-            params=params,
+            proxy_url,
             timeout=15
         )
-        # --- 🛠️ PROXY WORKAROUND END ---
 
-        print("JIKAN URL:", res.url)
+        print("JIKAN PROXY URL:", res.url)
         print("JIKAN STATUS:", res.status_code)
 
         if res.status_code != 200:
