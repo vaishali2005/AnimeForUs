@@ -12,39 +12,38 @@ def anime_data():
         )
 
 
-from urllib.parse import urlencode, urlparse
-
 def jikan_request(url, params=None):
     try:
-        # 1. Prepare the full target URL by attaching parameters safely first
+        # Add parameters to the Jikan URL first
         if params:
-            # Check if the url already contains an existing query character '?'
             separator = "&" if "?" in url else "?"
-            full_target_url = f"{url}{separator}{urlencode(params)}"
-        else:
-            full_target_url = url
+            url = f"{url}{separator}{urlencode(params)}"
 
-        # 2. Package the completely finished target path cleanly behind the proxy
-        proxy_url = f"https://corsproxy.io{full_target_url}"
+        # Encode the complete Jikan URL
+        encoded_url = quote(url, safe="")
 
-        # 3. Request the proxy URL directly without sending separate param blocks
+        # Correct CorsProxy URL
+        proxy_url = f"https://corsproxy.io/?url={encoded_url}"
+
         res = requests.get(
             proxy_url,
-            timeout=15
+            timeout=30
         )
 
-        print("JIKAN PROXY URL:", res.url)
-        print("JIKAN STATUS:", res.status_code)
+        print("JIKAN TARGET URL:", url)
+        print("PROXY URL:", proxy_url)
+        print("PROXY STATUS:", res.status_code)
 
         if res.status_code != 200:
-            print("JIKAN ERROR:", res.text[:500])
+            print("PROXY ERROR:", res.text[:500])
             return []
 
         response = res.json()
+
         return response.get("data") or []
 
     except requests.RequestException as e:
-        print("JIKAN CONNECTION ERROR:", e)
+        print("PROXY CONNECTION ERROR:", e)
         return []
 
 
