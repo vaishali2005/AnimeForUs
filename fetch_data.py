@@ -17,7 +17,7 @@ def jikan_request(url, params=None):
         # --- 🛠️ PROXY WORKAROUND START ---
         # Instead of calling Jikan directly, wrap the URL in a public proxy wrapper
         # This masks Render's data center signature completely
-        proxy_url = f"https://corsproxy.io{url}"
+        proxy_url = f"https://corsproxy.io{quote(url)}"
         
         res = requests.get(
             proxy_url,     # Use the wrapped proxy URL instead of 'url'
