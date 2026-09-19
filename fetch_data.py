@@ -1,6 +1,6 @@
 import requests
 # from routes import AnimeData,db
-from urllib.parse import quote
+from urllib.parse import quote, urlparse, urlencode
 import time
 
 #WORKING
