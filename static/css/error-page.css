@@ -1,236 +1,67 @@
-/* ================================
-   COMMON ERROR PAGE
-================================ */
-
 .error-page {
-    min-height: 75vh;
-    padding: clamp(50px, 8vw, 90px) 20px;
+    height: 75vh;
+    padding: 70px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #ffffff;
+    color: #fff;
+    /* background-color: antiquewhite; */
 }
 
 .error-container {
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
+    max-width: 650px;
 }
-
-
-/* ================================
-   ERROR CODE
-   Works for 404, 500, etc.
-================================ */
 
 .error-container h1 {
-    margin: 0 0 clamp(12px, 2vw, 18px);
-
-    font-size: clamp(72px, 12vw, 120px);
+    font-size: 120px;
     font-weight: 800;
-    line-height: 0.95;
-
+    line-height: 1;
+    margin: 0 0 15px;
     color: #ffffff;
-
-    /* Prevent very large numbers from overflowing */
-    word-break: break-word;
 }
-
-
-/* ================================
-   ERROR TITLE
-================================ */
 
 .error-container h2 {
-    margin: 0 0 clamp(12px, 2vw, 18px);
-
-    font-size: clamp(22px, 3.5vw, 32px);
-    font-weight: 600;
-    line-height: 1.3;
-
+    font-size: 32px;
+    margin: 0 0 15px;
     color: #ffffff;
 }
 
-
-/* ================================
-   ERROR MESSAGE
-================================ */
-
 .error-container p {
-    max-width: 600px;
-    margin: 0 auto clamp(25px, 4vw, 32px);
-
-    font-size: clamp(14px, 1.8vw, 16px);
-    line-height: 1.7;
-
+    font-size: 16px;
+    margin: 0 0 30px;
     color: #b7b7b7;
 }
 
-
-/* ================================
-   BUTTON AREA
-================================ */
-
-.error-container .primary-btn,
-.error-container .secondary-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 46px;
-    padding: 11px 24px;
-
-    border-radius: 5px;
-    border: none;
-
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease,
-        box-shadow 0.3s ease;
-}
-
-
-/* ================================
-   PRIMARY BUTTON
-================================ */
-
 .primary-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
     color: #ffffff;
     background: #e53637;
+    transition: 0.3s;
 }
 
 .primary-btn:hover {
     color: #ffffff;
     background: #ff4d4d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(229, 54, 55, 0.25);
 }
 
-
-/* ================================
-   SECONDARY BUTTON
-================================ */
-
 .secondary-btn {
+    display: inline-block;
+    padding: 12px 25px;
     margin-left: 10px;
-
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
     color: #ffffff;
     background: #44445a;
+    transition: 0.3s;
 }
 
 .secondary-btn:hover {
     color: #ffffff;
     background: #55556d;
-    transform: translateY(-2px);
-}
-
-
-/* ================================
-   KEYBOARD ACCESSIBILITY
-================================ */
-
-.error-container .primary-btn:focus-visible,
-.error-container .secondary-btn:focus-visible {
-    outline: 2px solid #ffffff;
-    outline-offset: 3px;
-}
-
-
-/* ================================
-   TABLET
-================================ */
-
-@media (max-width: 768px) {
-
-    .error-page {
-        min-height: 70vh;
-        padding: 60px 20px;
-    }
-
-    .error-container {
-        max-width: 600px;
-    }
-
-    .error-container p {
-        max-width: 500px;
-    }
-
-}
-
-
-/* ================================
-   MOBILE
-================================ */
-
-@media (max-width: 576px) {
-
-    .error-page {
-        min-height: 65vh;
-        padding: 50px 18px;
-    }
-
-    .error-container h1 {
-        font-size: clamp(64px, 22vw, 90px);
-    }
-
-    .error-container h2 {
-        font-size: 22px;
-    }
-
-    .error-container p {
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 25px;
-    }
-
-    .error-container .primary-btn,
-    .error-container .secondary-btn {
-        min-height: 44px;
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-
-}
-
-
-/* ================================
-   VERY SMALL PHONES
-================================ */
-
-@media (max-width: 380px) {
-
-    .error-page {
-        padding: 40px 15px;
-    }
-
-    .error-container h1 {
-        font-size: 64px;
-    }
-
-    .error-container h2 {
-        font-size: 20px;
-    }
-
-    .error-container p {
-        font-size: 13px;
-    }
-
-    /* Stack buttons if the screen is too narrow */
-    .error-container .primary-btn,
-    .error-container .secondary-btn {
-        width: 100%;
-        max-width: 240px;
-    }
-
-    .error-container .secondary-btn {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-
 }

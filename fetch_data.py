@@ -1,6 +1,6 @@
 import requests
 # from routes import AnimeData,db
-from urllib.parse import quote, urlparse, urlencode
+from urllib.parse import quote
 import time
 
 #WORKING
@@ -14,38 +14,25 @@ def anime_data():
 
 def jikan_request(url, params=None):
     try:
-        # Add parameters to the Jikan URL first
-        if params:
-            separator = "&" if "?" in url else "?"
-            url = f"{url}{separator}{urlencode(params)}"
-
-        # Encode the complete Jikan URL
-        encoded_url = quote(url, safe="")
-
-        # Correct CorsProxy URL
-        proxy_url = f"https://corsproxy.io/?url={encoded_url}"
-
         res = requests.get(
-            proxy_url,
-            timeout=30
+            url,
+            params=params,
+            timeout=15
         )
 
-        print("JIKAN TARGET URL:", url)
-        print("PROXY URL:", proxy_url)
-        print("PROXY STATUS:", res.status_code)
+        print("JIKAN URL:", res.url)
+        print("JIKAN STATUS:", res.status_code)
 
         if res.status_code != 200:
-            print("PROXY ERROR:", res.text[:500])
+            print("JIKAN ERROR:", res.text[:500])
             return []
 
         response = res.json()
-
         return response.get("data") or []
 
     except requests.RequestException as e:
-        print("PROXY CONNECTION ERROR:", e)
+        print("JIKAN CONNECTION ERROR:", e)
         return []
-
 
 
 
