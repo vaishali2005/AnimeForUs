@@ -14,11 +14,17 @@ def anime_data():
 
 def jikan_request(url, params=None):
     try:
+        # --- 🛠️ PROXY WORKAROUND START ---
+        # Instead of calling Jikan directly, wrap the URL in a public proxy wrapper
+        # This masks Render's data center signature completely
+        proxy_url = "https://corsproxy.io" + quote(url)
+        
         res = requests.get(
-            url,
+            proxy_url,     # Use the wrapped proxy URL instead of 'url'
             params=params,
             timeout=15
         )
+        # --- 🛠️ PROXY WORKAROUND END ---
 
         print("JIKAN URL:", res.url)
         print("JIKAN STATUS:", res.status_code)
@@ -33,6 +39,7 @@ def jikan_request(url, params=None):
     except requests.RequestException as e:
         print("JIKAN CONNECTION ERROR:", e)
         return []
+
 
 
 
