@@ -363,6 +363,25 @@ def page_not_found(error):
 def internal_server_error(error):
     return render_template("500.html"), 500
 
+@app.route("/jikan-test")
+def jikan_test():
+    import requests
+
+    url = "https://api.jikan.moe/v4/anime"
+
+    try:
+        response = requests.get(url, timeout=20)
+
+        return {
+            "status_code": response.status_code,
+            "response": response.json()
+        }
+
+    except Exception as e:
+        return {
+            "error": str(e)
+        }, 500
+
 
 if __name__=='__main__':
     app.run()
