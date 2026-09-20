@@ -13,26 +13,47 @@ def anime_data():
 
 
 def jikan_request(url, params=None):
-    try:
-        res = requests.get(
-            url,
-            params=params,
-            timeout=15
-        )
+    max_retries = 3
 
-        print("JIKAN URL:", res.url)
-        print("JIKAN STATUS:", res.status_code)
+    for attempt in range(max_retries):
+        try:
+            res = requests.get(
+                url,
+                params=params,
+                timeout=15
+            )
 
-        if res.status_code != 200:
+            print("JIKAN URL:", res.url)
+            print("JIKAN STATUS:", res.status_code)
+
+            if res.status_code == 200:
+                response = res.json()
+                return response.get("data") or []
+
+            if res.status_code in (429, 500, 502, 503, 504):
+                print(
+                    f"JIKAN TEMPORARY ERROR: {res.status_code} "
+                    f"(attempt {attempt + 1}/{max_retries})"
+                )
+
+                if attempt < max_retries - 1:
+                    time.sleep(2)
+                    continue
+
             print("JIKAN ERROR:", res.text[:500])
             return []
 
-        response = res.json()
-        return response.get("data") or []
+        except requests.RequestException as e:
+            print(
+                f"JIKAN CONNECTION ERROR "
+                f"(attempt {attempt + 1}/{max_retries}): {e}"
+            )
 
-    except requests.RequestException as e:
-        print("JIKAN CONNECTION ERROR:", e)
-        return []
+            if attempt < max_retries - 1:
+                time.sleep(2)
+                continue
+
+            return []
 
 
 

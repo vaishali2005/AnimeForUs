@@ -38,8 +38,19 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    # print(popular_anime())
-    return render_template('index.html', trending_anime=trending_anime(),top_anime=top_anime(),popular_anime=popular_anime(),recent_anime=recent_anime())
+
+    trending = trending_anime()
+    top = top_anime()
+    popular = popular_anime()
+    recent = recent_anime()
+
+    return render_template(
+        'index.html',
+        trending_anime=trending,
+        top_anime=top,
+        popular_anime=popular,
+        recent_anime=recent
+    )
 
 
 #REGISTER
@@ -169,23 +180,37 @@ def genre(id,name):
     anime_list = get_anime_by_genre(id)
     return render_template('category.html',anime_list=anime_list,name = name)
     
-all_category={
-    'Top': top_anime(),
-    'Popular':popular_anime(),
-    'Trending':trending_anime(),
-    'Recent':recent_anime(),
-    'Upcoming':upcoming_anime(),
-    'Airing':airing_anime(),
-    'Movies':movies(),
-    'TV Series':TV_series()
-}
 @app.route('/category/<string:name>')
 def category(name):
-    category_name = all_category.get(name)
-    if not category_name:
-        flash("Something Went Wrong","error")
+
+    category_functions = {
+        'Top': top_anime,
+        'Popular': popular_anime,
+        'Trending': trending_anime,
+        'Recent': recent_anime,
+        'Upcoming': upcoming_anime,
+        'Airing': airing_anime,
+        'Movies': movies,
+        'TV Series': TV_series
+    }
+
+    category_function = category_functions.get(name)
+
+    if not category_function:
+        flash("Something Went Wrong", "error")
         return redirect(url_for('categories'))
-    return render_template('category.html',anime_list=category_name,name=name)
+
+    anime_list = category_function()
+
+    if not anime_list:
+        flash("Anime list temporarily unavailable", "error")
+        return redirect(url_for('categories'))
+
+    return render_template(
+        'category.html',
+        anime_list=anime_list,
+        name=name
+    )
 
 @app.template_filter('format_views')
 def format_views(value):
